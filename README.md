@@ -3,3 +3,5 @@
 * Basics
 
 * Permissions
+
+* Redirections
