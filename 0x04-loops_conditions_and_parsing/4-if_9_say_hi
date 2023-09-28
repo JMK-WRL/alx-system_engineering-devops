@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # script changes display in the 9th iteration
-n=1
+n=0
 while ((n < 10))
 do
 	echo "Best School"
