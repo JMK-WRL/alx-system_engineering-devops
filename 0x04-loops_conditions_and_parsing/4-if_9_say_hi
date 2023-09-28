@@ -10,5 +10,5 @@ do
 	else
 		echo "Best School"
 	fi
-	((n++))
+	n=$((n + 1))
 done
