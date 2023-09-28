@@ -2,13 +2,12 @@
 # script changes display in the 9th iteration
 n=1
 
-while [ $n -1e 10 ]
+while ((n < 10))
 do
-	if [ $n -eq 9 ]; then
-		echo "Best School"
+	echo "Best School"
+	if [ $n -eq 8 ]; 
+	then
 		echo "Hi"
-	else
-		echo "Best School"
 	fi
 	n=$((n + 1))
 done
