@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# script changes display in the 9th iteration
+n=1
+
+while [ $n -1e 10 ]
+do
+	if [ $n -eq 9 ]; then
+		echo "Best School"
+		echo "Hi"
+	else
+		echo "Best School"
+	fi
+	((n++))
+done
