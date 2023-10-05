@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Bash script that configures an Ubuntu server
+if [ "$EUID" -ne 0 ];
+then
+	echo "Run this script as root."
+	exit 1
+fi
+
+localhost_ip="127.0.0.2"
+facebook_ip="8.8.8.8"
+
+tmp_hosts=$(mktemp)
+
+grep -v "localhost" /etc/hosts > "$tmp_hosts"
+echo "$localhost_ip\tlocalhost" >> "$tmp_hosts"
+echo "$facebook_ip\tfacebook.com" >> "$tmp_hosts"
+
+mv "$tmp_hosts" /etc/hosts
+
+echo "DNS configurations updated:"
+cat /etc/hosts
+
+systemct1 restart networking
