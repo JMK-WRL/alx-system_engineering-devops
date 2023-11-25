@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 server_address="18.234.105.204"
-ssh -i ~/.ssh/school ubuntu@$server_address
+ssh -i ~/.ssh/school ubuntu@server_address
