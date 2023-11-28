@@ -1,0 +1,33 @@
+
+#!/usr/bin/env bash
+#ckage list and install nginx
+apt-get update
+apt-get install -y nginx
+
+# Create a basic HTML page with "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
+
+# Configure Nginx to listen on port 80 and serve the created HTML page
+echo "server {
+    listen 80;
+    server_name _;
+
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+
+    location /redirect_me {
+        return 301 http://new-page-url;
+    }
+}" > /etc/nginx/sites-available/default
+
+# Restart Nginx
+service nginx restart
+
+# Test Nginx by querying it with curl
+if curl -s http://localhost/redirect_me | grep -q "301 Moved Permanently"; then
+    echo "Nginx configuration for redirection successful!"
+else
+    echo "Error: Nginx configuration for redirection may have issues."
+fi
