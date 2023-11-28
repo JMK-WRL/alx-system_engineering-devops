@@ -1,6 +1,5 @@
-
 #!/usr/bin/env bash
-#ckage list and install nginx
+#package list and install nginx
 apt-get update
 apt-get install -y nginx
 
