@@ -2,7 +2,7 @@
 
 # Updates the package list and installs nginx
 apt-get update
-apt-get install -y nginx
+apt-get -y install nginx
 # Configure firewall to allow traffic
 ufw allow 'Nginx HTTP'
 # Create a basic html page
