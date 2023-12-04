@@ -2,8 +2,6 @@
 # Updates the package list and installs nginx
 apt-get update
 apt-get -y install nginx
-# Configure firewall to allow traffic
 ufw allow 'Nginx HTTP'
-# Create a basic html page
 echo "Hello World!" > /var/www/html/index.html
 service nginx start
