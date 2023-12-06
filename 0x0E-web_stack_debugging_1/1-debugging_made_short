@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# shorter bash script related to task 0 
+# shorter bash script
 
 apt-get update
 apt-get install -y nginx
-echo "listen 80;" > /echo/nginx/sites-available/default
+sed -i 's/\(listen\s* \[::\]:\)\?80;/listen 80;/g' /etc/nginx/sites-available/default
 service nginx restart
+netstart -tupln | grep ':80' > /dev/null 2>&1 || echo "Nginx is not running"
