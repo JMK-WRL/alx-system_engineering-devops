@@ -12,4 +12,7 @@ sudo sed -i '\#root /var/www/html;#a\\n\terror_page 404 /404.html;\n' /etc/nginx
 
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
+# Testing the config files
+sudo nginx -t
+
 sudo service nginx restart
