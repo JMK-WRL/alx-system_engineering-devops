@@ -1,32 +1,16 @@
 #!/usr/bin/env bash
-#package list and install nginx
-apt-get update
-apt-get install -y nginx
+# Script that configures a new ubuntu machine to perform a 301
 
-# Create a basic HTML page with "Hello World!"
-echo "Hello World!" > /var/www/html/index.html
+# updating packages before installation
+sudo apt-get update
+sudo apt-get install -y nginx
 
-# Configure Nginx to listen on port 80 and serve the created HTML page
-echo "server {
-    listen 80;
-    server_name _;
+# creating an index.html page
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-    location / {
-        root /var/www/html;
-        index index.html;
-    }
+# Perform the 301-redirection
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/JMK-WRL permanent;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
-    location /redirect_me {
-        return 301 http://www.google.com;
-    }
-}" > /etc/nginx/sites-available/default
-
-# Restart Nginx
-service nginx restart
-
-# Test Nginx by querying it with curl
-if curl -s http://localhost/redirect_me | grep -q "301 Moved Permanently"; then
-    echo "Nginx configuration for redirection successful!"
-else
-    echo "Error: Nginx configuration for redirection may have issues."
-fi
+# Restart the service
+sudo service nginx restart
