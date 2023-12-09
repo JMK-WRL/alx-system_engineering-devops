@@ -7,7 +7,6 @@ sudo apt-get -y install haproxy
 
 # Config file
 server_config=\
-
 "
 frontend JMK-WRL_frontend
 	bind *:80
