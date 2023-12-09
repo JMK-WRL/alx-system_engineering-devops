@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Script to install a load balancer
+
+# Install and configure HAproxy
+sudo apt-get -y update
+sudo apt-get -y install haproxy
+
+# Config file
+server_config=\
+
+"
+frontend JMK-WRL_frontend
+	bind *:80
+	mode http
+	default_backend JMK-WRL_backend
+backend JMK-WRL_backend
+	balance roundrobin
+	server 337031-web-01 34.207.57.191:80 check
+	server 337031-web-02 54.174.137.26:80 check
+"
+
+echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
+
+# Enable haproxy to be started by the init script
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+
+# Testing the HAproxy config file
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+
+# Restart the service
+sudo service haproxy restart
