@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # bash script that configures a server to the connect to a port 
 
-apt-get update
-apt-get install -y nginx
 sed -i 's/[0-9]\+ default_server/80 default_server' /etc/nginx/sites-available/default
 service nginx restart
