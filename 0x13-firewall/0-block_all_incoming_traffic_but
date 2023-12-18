@@ -1,0 +1,22 @@
+# Checking the ufw(firewall) status:
+
+sudo ufw status
+
+# If it is not active, run:
+sudo ufw enable
+
+# To set incoming policy to "deny" incoming traffic run:
+sudo ufw default deny incoming
+
+# To set incoming policy to "allow" incoming traffic run:
+sudo ufw default allow outgoing
+
+# Allowing incoming traffic in TCP ports 22, 443, and 80 run:
+
+sudo ufw allow 22/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 80/tcp
+
+# To verify the rules have been added run:
+
+sudo ufw show added
