@@ -1,4 +1,4 @@
-#!/usr/bin/pyhton3
+#!/usr/bin/python3
 """Script to gather data from a REST API for a given employee ID
 and export TODO list progress in JSON format.
 """
