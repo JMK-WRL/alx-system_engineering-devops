@@ -3,9 +3,9 @@
 and export TODO list progress in CSV format.
 """
 
-import requests
 import csv
 from sys import argv
+import requests
 
 
 def get_employee_todo_progress(employee_id):
@@ -22,7 +22,8 @@ def get_employee_todo_progress(employee_id):
     # Create CSV file
     csv_file_path = f"{employee_id}.csv"
     with open(csv_file_path, 'w', newline='') as csvfile:
-        fieldnames = ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"]
+        fieldnames = ["USER_ID", "USERNAME",
+                      "TASK_COMPLETED_STATUS", "TASK_TITLE"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         # Write CSV header
@@ -49,3 +50,4 @@ if __name__ == "__main__":
             get_employee_todo_progress(employee_id)
         except ValueError:
             print("Please provide a valid integer for the employee ID.")
+
