@@ -26,9 +26,14 @@ def get_employee_todo_progress(employee_id):
     # Display progress information
     print(f"Employee {user_data['name']} is done with tasks "
           f"({completed_tasks}/{total_tasks}): ")
-    for task in todo_data:
-        if task['completed']:
-            print(f"\t{task['title']}")
+
+    # Check if theer are tasks to display
+    if total_tasks > 0:
+        for task in todo_data:
+            if task['completed']:
+                print(f"\t{task['title']}")
+    else:
+        print("\tNo tasks found for this employee.")
 
 
 if __name__ == "__main__":
