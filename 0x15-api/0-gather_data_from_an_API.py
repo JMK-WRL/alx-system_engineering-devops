@@ -1,36 +1,39 @@
 #!/usr/bin/python3
 """
-Script that, uses this REST API, for a given employee ID, returns
-information about his/her TODO list progress.
+Script to gather data from a REST API for a given employee ID and display TODO list progress.
 """
-import json
+
 import requests
 from sys import argv
 
+def get_employee_todo_progress(employee_id):
+    base_url = "https://jsonplaceholder.typicode.com/"
+    
+    # Fetch user data
+    user_response = requests.get(f"{base_url}users/{employee_id}")
+    user_data = user_response.json()
+    
+    # Fetch TODO list data
+    todo_response = requests.get(f"{base_url}todos?userId={employee_id}")
+    todo_data = todo_response.json()
+    
+    # Calculate progress
+    total_tasks = len(todo_data)
+    completed_tasks = sum(task['completed'] for task in todo_data)
+    
+    # Display progress information
+    print(f"Employee {user_data['name']} is done with tasks({completed_tasks}/{total_tasks}):")
+    for task in todo_data:
+        if task['completed']:
+            print(f"\t{task['title']}")
 
 if __name__ == "__main__":
+    if len(argv) != 2:
+        print("Usage: python3 script.py <employee_id>")
+    else:
+        try:
+            employee_id = int(argv[1])
+            get_employee_todo_progress(employee_id)
+        except ValueError:
+            print("Please provide a valid integer for the employee ID.")
 
-    sessionReq = requests.Session()
-
-    idEmp = argv[1]
-    idURL = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(idEmp)
-    nameURL = 'https://jsonplaceholder.typicode.com/users/{}'.format(idEmp)
-
-    employee = sessionReq.get(idURL)
-    employeeName = sessionReq.get(nameURL)
-
-    json_req = employee.json()
-    name = employeeName.json()['name']
-
-    totalTasks = 0
-
-    for done_tasks in json_req:
-        if done_tasks['completed']:
-            totalTasks += 1
-
-    print("Employee {} is done with tasks({}/{}):".
-          format(name, totalTasks, len(json_req)))
-
-    for done_tasks in json_req:
-        if done_tasks['completed']:
-            print("\t " + done_tasks.get('title'))
