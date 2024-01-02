@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-"""Script to gather data from a REST API for a given employee ID
+"""
+Script to gather data from a REST API for a given employee ID
 and export TODO list progress in JSON format.
 """
 
-import requests
 import json
 from sys import argv
+import requests
 
 
 def get_employee_todo_progress(employee_id):
