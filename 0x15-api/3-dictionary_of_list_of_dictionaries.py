@@ -21,7 +21,9 @@ def get_all_employees_todo_progress():
 
     for user_data in users_data:
         # Fetch TODO list data for each employee
-        todo_response = requests.get(f"{base_url}todos?userId={user_data['id']}")
+        user_id = user_data['id']
+        url = f"{base_url}todos?userId={user_id}"
+        todo_response = requests.get(url)
         todo_data = todo_response.json()
 
         # Store tasks in the dictionary
@@ -39,7 +41,7 @@ def get_all_employees_todo_progress():
     # Create JSON file
     json_file_path = "todo_all_employees.json"
     with open(json_file_path, 'w') as jsonfile:
-        json.dump(all_employees_tasks, jsonfile)
+        json.dump(all_employees_tasks, jsonfile, indent=2)
 
     print(f"Data exported to {json_file_path}")
 
