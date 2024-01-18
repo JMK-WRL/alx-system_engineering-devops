@@ -28,4 +28,4 @@ def number_of_subscribers(subreddit):
 
     except requests.RequestException as e:
         print(f"Request Exception: {e}")
-        return "Error
+        return "Error"
