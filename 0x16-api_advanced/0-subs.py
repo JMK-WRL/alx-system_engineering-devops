@@ -1,27 +1,41 @@
 #!/usr/bin/python3
 """
-a function to query subscribers on a given Reddit subreddit.
+Returns number of subscribers for a subreddit using the Reddit API.
 """
+
 import requests
 
-
 def number_of_subscribers(subreddit):
-    headers = {'User-Agent':'CustomUserAgent'}
-    url = f'https://www.redit.com/r/{subreddit}/about.json'
+  """
+  Queries the Reddit API and returns the number of 
+  subscribers for the given subreddit.
+  
+  Parameters:
+    subreddit (str): The subreddit name
+  
+  Returns:
+    int: Number of subscribers, or 0 if invalid subreddit
+  """
+  
+  # Set custom User-Agent to avoid rate limiting
+  headers = {'User-Agent': 'MyBot'} 
+  
+  # API endpoint for subreddit about page
+  url = f'https://www.reddit.com/r/{subreddit}/about.json'
+  
+  try:
+    # Make GET request
+    response = requests.get(url, headers=headers, allow_redirects=False)
+    
+    # Raise exception for 4xx/5xx statuses
+    response.raise_for_status()
+    
+  except requests.exceptions.HTTPError:
+    # Return 0 for any HTTP errors
+    return 0
 
-    try:
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            subreddit_info = response.json().get('data', {})
-            subscribers_count = subreddit_info.get('subscribers', 0)
-            return f"OK {subscribers_count}"
-
-        elif response.status_code == 404:
-            return "Error"
-        else: 
-            print(f"Error: {response.status_code} - {response.text}")
-            return "Error"
-
-    except requests.RequestException as e:
-        print(f"Request Exception: {e}")
-        return "Error"
+  # Parse response as JSON
+  data = response.json() 
+  
+  # Extract and return subscriber count 
+  return data['data']['subscribers']
