@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """ 
 number of subscribers for a given subreddit
 """
